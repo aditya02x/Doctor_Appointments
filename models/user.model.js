@@ -8,13 +8,28 @@ const userSchema = new mongoose.Schema({
     email:{
         type:String,
         required:true,
+        unique:true
     },
     password:{
         type:String,
         required:true,
     },
-    
+    phone:{
+        type:String,
+    },
+    profilePic:{
+        type:String,
+        default:''
+    },
+    role:{
+        type:String,
+        enum:['patient','admin'],
+        default:'patient'
+    }
+
 
 },{
     timestamps:true,
 })
+
+module.exports = mongoose.model('User',userSchema)

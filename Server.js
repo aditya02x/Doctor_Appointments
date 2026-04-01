@@ -5,6 +5,7 @@ import { connectDB } from './DB/db.js';
 import authroute from './routes/auth.route.js';
 import slotroute from './routes/slot.route.js';
 import doctorroute from './routes/doctor.route.js';
+
 import cors from "cors";
 
 
@@ -20,6 +21,7 @@ app.get('/', (req, res) => {
 app.use('/api/auth',authroute)
 app.use('/api/doctor', doctorroute)
 app.use('/api/slot', slotroute)
+app.use('/api/slot',slotroute)
 
 const PORT = process.env.PORT || 3000;
 

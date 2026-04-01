@@ -28,3 +28,27 @@ export const createSlot = async (req, res) => {
         res.status(500).json({ message: "Server error" });
     }
 }
+
+
+export const getSlots = async (req, res) => {
+    try {
+       const doctorId = req.doctor._id;
+       const slots = await Slot.find({ doctorId});
+       res.status(200).json({slots});
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "Server error" });
+    }
+}
+
+export const getAvailableSlots = async (req, res) => {
+    try {
+        const doctorId = req.params.doctorId;
+        const slots = await Slot.find({doctorId, isBooked: false});
+        res.status(200).json({slots});
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "Server error" });
+    }
+}
+

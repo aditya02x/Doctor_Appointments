@@ -1,5 +1,5 @@
 import Doctor from '../models/Doctor.model.js';
-import bcrypt from 'bcryptjs';
+import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
 export const doctorRegister = async (req, res) => {

@@ -1,4 +1,7 @@
 import mongoose from "mongoose";
+import dotenv from "dotenv";
+
+dotenv.config()
 
 
 export const connectDB = async ()=>{
@@ -9,6 +12,7 @@ export const connectDB = async ()=>{
     } catch (error) {
         console.log(error);
         console.log("Error connecting to the database");
+        process.exit(1);
         
     }
 }

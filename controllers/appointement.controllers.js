@@ -71,11 +71,40 @@ export const getDoctorAppointments = async (req, res) => {
 
 export const getAllAppointements = async (req,res)=>{
     try {
-        const allappointements = await Appointment.find().populate('patientId','name email').populate('doctorId','name specialization').populate('slotId','date startTime endTime');
-        res.status(200).json({allappointements});
+        const allappointments = await Appointment.find().populate('patientId','name email').populate('doctorId','name specialization').populate('slotId','date startTime endTime');
+        res.status(200).json({allappointments});
         
     } catch (error) {
         console.log(error);
         res.status(500).json({ message: 'Server error' });
     }
 }
+
+export const cancelAppointment = async (req, res) => {
+    try {
+        const appointmentId = req.params.id;
+        
+        const appointment = await Appointment.findById(appointmentId);
+        if (!appointment) {
+            return res.status(404).json({ message: 'Appointment not found' });
+        }
+
+        if (appointment.patientId.toString() !== req.user._id.toString()) {
+            return res.status(403).json({ message: 'Not authorized' });
+        }
+
+        if (appointment.status === 'cancelled') {
+            return res.status(400).json({ message: 'Appointment already cancelled' });
+        }
+
+        await Appointment.findByIdAndUpdate(appointmentId, { status: 'cancelled' });
+
+        await Slot.findByIdAndUpdate(appointment.slotId, { isBooked: false });
+
+        res.status(200).json({ message: 'Appointment cancelled successfully' });
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: 'Server error' });
+    }
+};

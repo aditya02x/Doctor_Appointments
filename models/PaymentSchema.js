@@ -9,4 +9,4 @@ const paymentSchema = new mongoose.Schema({
   paidAt:             { type: Date },
 }, { timestamps: true });
 
-export default mongoose.model("Payment",payementSchema)
+export default mongoose.model("Payment",paymentSchema)

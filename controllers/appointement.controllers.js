@@ -54,3 +54,17 @@ export const getAppointments = async (req, res) => {
         res.status(500).json({ message: 'Server error' });
     }
 }
+
+export const getDoctorAppointments = async (req, res) => {
+    try {
+        const doctorId = req.doctor._id;
+        const appointements = await Appointment.find({ doctorId }).populate('patientId', 'name email').populate('slotId', 'date startTime endTime');
+        res.status(200).json({ appointements });
+        
+        
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: 'Server error' });
+        
+    }
+}

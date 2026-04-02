@@ -58,13 +58,24 @@ export const getAppointments = async (req, res) => {
 export const getDoctorAppointments = async (req, res) => {
     try {
         const doctorId = req.doctor._id;
-        const appointements = await Appointment.find({ doctorId }).populate('patientId', 'name email').populate('slotId', 'date startTime endTime');
-        res.status(200).json({ appointements });
-        
+        const appointments = await Appointment.find({ doctorId }).populate('patientId', 'name email').populate('slotId', 'date startTime endTime');
+        res.status(200).json({ appointments });
+
         
     } catch (error) {
         console.log(error);
         res.status(500).json({ message: 'Server error' });
         
+    }
+}
+
+export const getAllAppointements = async (req,res)=>{
+    try {
+        const allappointements = await Appointment.find().populate('patientId','name email').populate('doctorId','name specialization').populate('slotId','date startTime endTime');
+        res.status(200).json({allappointements});
+        
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: 'Server error' });
     }
 }

@@ -6,6 +6,7 @@ import authroute from './routes/auth.route.js';
 import slotroute from './routes/slot.route.js';
 import doctorroute from './routes/doctor.route.js';
 import appointmentroute from './routes/appointement.route.js';
+import paymentroute from './routes/payment.route.js';
 import adminroute from './routes/admin.route.js';
 import cors from "cors";
 
@@ -24,6 +25,7 @@ app.use('/api/slot', slotroute)
 app.use('/api/slot',slotroute)
 app.use('/api/appointment', appointmentroute)
 app.use('/api/admin', adminroute)
+app.use('/api/payment', paymentroute);
 
 const PORT = process.env.PORT || 3000;
 
